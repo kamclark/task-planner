@@ -3,9 +3,22 @@
 
 // Write your JavaScript code.
 
-
 const uri = "api/todo";
 let todos = null;
+const tBody = $("#todostable");
+
+
+function refreshTable() {
+    $("#todostable tbody").empty();
+    $("#todostable").load("index.html #todostable");
+}
+
+function clearTable() {
+    $("#todostable tbody").empty();
+}
+
+$(document).ready(function () {
+});
 
 function getCount(data) {
     const el = $("#counter");
@@ -20,10 +33,6 @@ function getCount(data) {
     }
 }
 
-$(document).ready(function () {
-    getData();
-});
-
 
 function getData() {
     $.ajax({
@@ -31,13 +40,27 @@ function getData() {
         url: uri,
         cache: false,
         success: function (data) {
-            const tBody = $("#todos");
-
-            $(tBody).empty();
-
             getCount(data.length);
 
+
             $.each(data, function (key, item) {
+                const tr = $("<tr></tr>")
+                    .append($("<td></td>").append("?"))
+                    .append($("<td></td>").text(item.priority))
+                    .append($("<td></td>").text(item.name))
+                    .append($("<td></td>").text(item.memo))
+                    .append($("<td></td>").text("X"));
+
+                tr.appendTo(tBody);
+            });
+
+            todos = data;
+        }
+    })
+
+}
+
+            /*$.each(data, function (key, item) {
                 const tr = $("<tr></tr>")
                     .append(
                         $("<td></td>").append(
@@ -70,12 +93,15 @@ function getData() {
             todos = data;
         }
     });
-}
+}*/
 
 
 function addItem() {
     const item = {
-        name: $("#add-name").val(),
+        name: $("#newTaskTitle").val(),
+        memo: $("#newTaskMemo").val(),
+        priority: $("#newTaskPriority").val(),
+        icon: "question",
         isComplete: false
     };
 
@@ -93,5 +119,12 @@ function addItem() {
             $("#add-name").val("");
         }
     });
-}
 
+    const tBody = $("#todostable");
+    clearTable;
+    refreshTable();
+
+
+    $('#newTaskModal').modal('toggle'); //or  $('#IDModal').modal('hide');
+    return false;
+}
