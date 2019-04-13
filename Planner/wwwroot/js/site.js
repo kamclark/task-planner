@@ -1,16 +1,10 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-const uri = "api/todo";
+﻿const uri = "api/todo";
 let todos = null;
 const tBody = $("#todostable");
 
 
 function refreshTable() {
-    $("#todostable tbody").empty();
-    $("#todostable").load("index.html #todostable");
+    // I broke it
 }
 
 function clearTable() {
@@ -32,7 +26,6 @@ function getCount(data) {
         el.text("No " + name);
     }
 }
-
 
 function getData() {
     $.ajax({
@@ -95,7 +88,6 @@ function getData() {
     });
 }*/
 
-
 function addItem() {
     const item = {
         name: $("#newTaskTitle").val(),
@@ -120,11 +112,14 @@ function addItem() {
         }
     });
 
-    const tBody = $("#todostable");
-    clearTable;
+    clearTable();
     refreshTable();
 
+    $('#newTaskModal').modal('hide');
 
-    $('#newTaskModal').modal('toggle'); //or  $('#IDModal').modal('hide');
+    $(document).on("hidden.bs.modal", "#newTaskModal", function () {
+        $("#taskform")[0].reset();
+        console.log("hidden modal");
+    })
     return false;
 }

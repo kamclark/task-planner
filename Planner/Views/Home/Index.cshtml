@@ -14,37 +14,36 @@
 
 <div class="row">        
     <div class="col-md-12">
-                <div class="btn-group float-md-left pb-2"> @*padding from bottom for menu not to touch table*@
-                    
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">File</button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">New</a>
-                        <a class="dropdown-item" href="#">Help</a>
+        <div class="btn-group float-md-left pb-2"> @*padding from bottom for menu not to touch table*@
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">File</button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">New</a>
+                <a class="dropdown-item" href="#">Help</a>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary float-md-right" data-toggle="modal" data-target="#newTaskModal">Add Task</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="newTaskModal" tabindex="-1" role="dialog" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newTaskModalLabel">New Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                         </button>
                     </div>
-                </div>
-
-
-                <button type="button" class="btn btn-primary float-md-right" data-toggle="modal" data-target="#newTaskModal">Add Task</button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="newTaskModal" tabindex="-1" role="dialog" aria-labelledby="newTaskModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="newTaskModalLabel">New Task</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="javascript:void(0)" method="post" onsubmit="addItem()">
-                                    <div class="form-group">
-                                        <label for="newTaskTitle">Title</label>
-                                        <input type="text" class="form-control" id="newTaskTitle" aria-describedby="titleHelp" placeholder="e.g: Grab Groceries">
-                                        <small id="titleHelp" class="form-text text-muted">Can't be blank.</small>
-                                    </div>
-
-                                    <div class="form-group">
+                    
+                    <div class="modal-body">
+                        <form id="taskform" action="javascript:void(0)" method="post" onsubmit="addItem()" autocomplete="off">
+                        <div class="form-group">
+                            <label for="newTaskTitle">Title</label>
+                            <input type="text" class="form-control" id="newTaskTitle" aria-describedby="titleHelp" placeholder="e.g: Grab Groceries">
+                            <small id="titleHelp" class="form-text text-muted">Can't be blank.</small>
+                        </div>
+                        
+                            <div class="form-group">
                                         <label for="newTaskMemo">Memo</label>
                                         <input type="text" class="form-control" id="newTaskMemo" aria-describedby="memoHelp" placeholder="Description....">
                                         <small id="memoHelp" class="form-text text-muted"></small>
@@ -64,9 +63,6 @@
                                     <button type="submit" class="btn btn-primary">Add</button>
                                 </form>
                             </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
