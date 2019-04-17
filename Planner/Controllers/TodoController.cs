@@ -17,6 +17,8 @@ namespace TodoAPI.Controllers
         {
             _context = context;
 
+
+            // TODO --- Add sorting capability to table
             if (_context.TodoItems.Count() == 0)
             {
                 // Create a new TodoItem if collection is empty,

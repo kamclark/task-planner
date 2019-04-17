@@ -11,9 +11,29 @@ function clearTable() {
     $("#todostable tbody").empty();
 }
 
+
+function validateForm() {
+    //TODO --- Validate add task modal form
+}
+
+function clearTaskForm() {
+    $('#newTaskModal').modal('hide');
+
+    $(document).on("hidden.bs.modal", "#newTaskModal", function () {
+        $("#taskform")[0].reset();
+        console.log("hidden modal and cleared form");
+    })
+}
+
+
 $(document).ready(function () {
+    $('.modal [data-dismiss="modal"]').click(function () {
+        clearTaskForm();
+        console.log('Closed modal');
+    });
 });
 
+// Count todo task objects
 function getCount(data) {
     const el = $("#counter");
     let name = "to-do";
@@ -27,6 +47,7 @@ function getCount(data) {
     }
 }
 
+// get data from JSON object and append to table
 function getData() {
     $.ajax({
         type: "GET",
@@ -34,7 +55,6 @@ function getData() {
         cache: false,
         success: function (data) {
             getCount(data.length);
-
 
             $.each(data, function (key, item) {
                 const tr = $("<tr></tr>")
@@ -47,47 +67,14 @@ function getData() {
                 tr.appendTo(tBody);
             });
 
+            //TODO --- Append deletion button to end of each task row
             todos = data;
         }
     })
 
 }
 
-            /*$.each(data, function (key, item) {
-                const tr = $("<tr></tr>")
-                    .append(
-                        $("<td></td>").append(
-                            $("<input/>", {
-                                type: "checkbox",
-                                disabled: true,
-                                checked: item.isComplete
-                            })
-                        )
-                    )
-                    .append($("<td></td>").text(item.name))
-                    .append(
-                        $("<td></td>").append(
-                            $("<button>Edit</button>").on("click", function () {
-                                editItem(item.id);
-                            })
-                        )
-                    )
-                    .append(
-                        $("<td></td>").append(
-                            $("<button>Delete</button>").on("click", function () {
-                                deleteItem(item.id);
-                            })
-                        )
-                    );
-
-                tr.appendTo(tBody);
-            });
-
-            todos = data;
-        }
-    });
-}*/
-
+// Post to json object based off of form values
 function addItem() {
     const item = {
         name: $("#newTaskTitle").val(),
@@ -95,6 +82,8 @@ function addItem() {
         priority: $("#newTaskPriority").val(),
         icon: "question",
         isComplete: false
+        //TODO --- Display icon in row based on item.icon
+        //TODO --- Display check or X in row based on item.isComplete
     };
 
     $.ajax({
@@ -108,18 +97,11 @@ function addItem() {
         },
         success: function (result) {
             getData();
-            $("#add-name").val("");
+            clearTaskForm();
         }
     });
 
-    clearTable();
-    refreshTable();
+    clearTable(); // clear table to be populated again anew from JSON object
 
-    $('#newTaskModal').modal('hide');
-
-    $(document).on("hidden.bs.modal", "#newTaskModal", function () {
-        $("#taskform")[0].reset();
-        console.log("hidden modal");
-    })
     return false;
 }
