@@ -12,10 +12,6 @@ function clearTable() {
 }
 
 
-function validateForm() {
-    //TODO --- Validate add task modal form
-}
-
 function clearTaskForm() {
     $('#newTaskModal').modal('hide');
 
@@ -47,6 +43,8 @@ function getCount(data) {
     }
 }
 
+
+
 // get data from JSON object and append to table
 function getData() {
     $.ajax({
@@ -74,8 +72,23 @@ function getData() {
 
 }
 
+
+// Title field value can not be empty
+function validateForm() {
+    //TODO --- Validate add task modal form
+
+    if ($("#newTaskTitle").val() === '') {
+        return false;
+    }
+}
+
 // Post to json object based off of form values
 function addItem() {
+    if (!validateForm()) {
+        console.log("it's empty");
+        return;
+    }
+
     const item = {
         name: $("#newTaskTitle").val(),
         memo: $("#newTaskMemo").val(),
