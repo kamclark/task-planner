@@ -76,16 +76,17 @@ function getData() {
 // Title field value can not be empty
 function validateForm() {
     //TODO --- Validate add task modal form
+    newTaskTitle = $("#newTaskTitle").val();
 
-    if ($("#newTaskTitle").val() === '') {
+    if (!newTaskTitle) {
         return false;
     }
 }
 
 // Post to json object based off of form values
 function addItem() {
-    if (!validateForm()) {
-        console.log("it's empty");
+    if (validateForm() === false) {
+        console.log("empty title field");
         return;
     }
 
